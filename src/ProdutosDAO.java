@@ -39,6 +39,21 @@ public class ProdutosDAO {
         }
     }
 
+    public boolean venderProduto(int id) {
+        try {
+            conn = new conectaDAO().connectDB();
+            String sql = "UPDATE produtos SET status = 'Vendido' WHERE id = ?";
+            prep = conn.prepareStatement(sql);
+            prep.setInt(1, id);
+            prep.executeUpdate();
+            conn.close();
+            return true;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao vender: " + e.getMessage());
+            return false;
+        }
+    }
+
     public ArrayList<ProdutosDTO> listarProdutos() {
         try {
             conn = new conectaDAO().connectDB();
